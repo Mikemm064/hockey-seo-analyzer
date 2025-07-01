@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced SEO Gap Analysis for Hockey Teams - Discover untapped search opportunities and boost your team's online visibility">
+    <meta name="keywords" content="hockey SEO, sports marketing, team promotion, search optimization">
+    <meta property="og:title" content="Hockey SEO Analyzer">
+    <meta property="og:description" content="Discover SEO opportunities for your hockey team">
+    <meta property="og:type" content="website">
+    <title>🏒 Hockey SEO Analyzer - Boost Your Team's Online Presence</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏒</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: #10b981;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .value-proposition {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .value-prop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .value-item {
+            text-align: center;
+            color: white;
+        }
+
+        .value-item .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .main-tool {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 30px;
+        }
+
+        .main-tool h2 {
+            color: #1a365d;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #1a365d;
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(26, 54, 93, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.analyze-btn {
+            background: linear-gradient(135deg, #c53030 0%, #e53e3e 100%);
+            font-size: 18px;
+            padding: 18px 35px;
+        }
+
+        .btn .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .sample-teams {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .sample-team {
+            background: #f0f4f8;
+            color: #1a365d;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .sample-team:hover {
+            background: #1a365d;
+            color: white;
+        }
+
+        .results {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .results h3 {
+            color: #1a365d;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .results-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .opportunity-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .opportunity-item:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+            transform: translateY(-2px);
+        }
+
+        .opportunity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .priority-number {
+            background: linear-gradient(135deg, #c53030 0%, #e53e3e 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .keyword-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 5px;
+            flex-grow: 1;
+        }
+
+        .opportunity-score {
+            background: linear-gradient(135deg, #c53030 0%, #e53e3e 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .opportunity-score.high { background: linear-gradient(135deg, #c53030 0%, #e53e3e 100%); }
+        .opportunity-score.medium { background: linear-gradient(135deg, #d69e2e 0%, #f6e05e 100%); }
+        .opportunity-score.low { background: linear-gradient(135deg, #38a169 0%, #68d391 100%); }
+
+        .opportunity-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-section {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-title {
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-content {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .competitor-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .competitor-tag {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .error {
+            color: #c53030;
+            background: #fed7d7;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .success {
+            color: #38a169;
+            background: #c6f6d5;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .insights-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+
+        .insights-section h4 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .insight-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .export-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #38a169 0%, #48bb78 100%);
+            margin: 0 10px;
+            width: auto;
+            padding: 12px 24px;
+        }
+
+        .data-source-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .real-data {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .simulated-data {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .opportunity-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .sample-teams {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Status Indicator -->
+    <div class="status-indicator">
+        ✅ Vercel Deployment
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🏒 Minor League Hockey SEO Gap Analyzer</h1>
+            <p>Discover keyword opportunities where your hockey team is losing search traffic</p>
+            
+            <div class="value-proposition">
+                <div class="value-prop-grid">
+                    <div class="value-item">
+                        <div class="icon">🎯</div>
+                        <h4>Find Revenue Gaps</h4>
+                        <p>See where ticket resellers outrank your official site</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">🤖</div>
+                        <h4>AI Search Ready</h4>
+                        <p>Optimize for voice search and AI assistants</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">❄️</div>
+                        <h4>Fan Experience Gaps</h4>
+                        <p>Capture first-time hockey fans and local searches</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-tool">
+            <h2>🔍 Real-Time SEO Gap Analysis</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Enter your hockey team name and email to receive a comprehensive analysis using real DataForSEO data
+            </p>
+
+            <form id="analysisForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="teamName">Hockey Team Name:</label>
+                        <input type="text" id="teamName" placeholder="e.g., Hershey Bears" required>
+                        <div class="sample-teams">
+                            <span style="color: #666; margin-right: 10px;">Quick select:</span>
+                            <div class="sample-team" onclick="setTeamName('Hershey Bears')">Hershey Bears</div>
+                            <div class="sample-team" onclick="setTeamName('Charlotte Checkers')">Charlotte</div>
+                            <div class="sample-team" onclick="setTeamName('Allen Americans')">Allen Americans</div>
+                            <div class="sample-team" onclick="setTeamName('Chicago Wolves')">Chicago Wolves</div>
+                            <div class="sample-team" onclick="setTeamName('Toledo Walleye')">Toledo Walleye</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="league">League:</label>
+                        <select id="league">
+                            <option value="AHL">AHL (American Hockey League)</option>
+                            <option value="ECHL">ECHL (East Coast Hockey League)</option>
+                            <option value="other">Other Minor League</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address (for report delivery):</label>
+                    <input type="email" id="email" placeholder="your.email@hockeyteam.com" required>
+                </div>
+
+                <button type="submit" class="btn analyze-btn">
+                    <span class="loading-spinner"></span>
+                    <span class="btn-text">🚀 Analyze SEO Gaps (Real Data)</span>
+                </button>
+            </form>
+
+            <div style="margin-top: 20px; padding: 15px; background: #e6fffa; border-radius: 10px; text-align: center;">
+                <strong>🎁 Real-Time Analysis Includes:</strong> Top 5 keyword opportunities with live DataForSEO data, 
+                competitor analysis, arena information gaps, and hockey-specific search optimization tips
+            </div>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // Hockey SEO Analyzer - Vercel API Integration
+        class HockeySEOAnalyzer {
+            constructor() {
+                this.keywords = [
+                    'first time {team} game',
+                    'what to expect {team} hockey',
+                    '{team} parking tips',
+                    'where to park {team} game',
+                    '{team} seating chart',
+                    'best seats {team}',
+                    'what to wear hockey game',
+                    'cheap {team} tickets',
+                    '{team} ticket prices',
+                    'hotels near {team}',
+                    'restaurants near {team}',
+                    '{team} schedule 2025'
+                ];
+            }
+
+            generateKeywords(teamName) {
+                const keywords = [];
+                this.keywords.forEach(pattern => {
+                    keywords.push(pattern.replace('{team}', teamName.toLowerCase()));
+                });
+                return keywords;
+            }
+
+            async analyzeKeywords(teamName, league, email) {
+                console.log('🔗 Starting Vercel API analysis for:', teamName);
+                
+                try {
+                    const keywords = this.generateKeywords(teamName);
+                    
+                    console.log('📡 Calling Vercel API endpoint');
+                    
+                    const response = await fetch('/api/analyze', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            teamName: teamName,
+                            league: league,
+                            keywords: keywords,
+                            email: email
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
+                    }
+
+                    const result = await response.json();
+                    console.log('✅ Vercel analysis complete:', result);
+                    
+                    if (result.success && result.analyses) {
+                        return {
+                            analyses: result.analyses,
+                            summary: result.summary,
+                            teamName: result.teamName,
+                            league: result.league,
+                            totalKeywords: result.totalKeywords
+                        };
+                    } else {
+                        throw new Error(result.message || 'Analysis failed');
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Analysis failed:', error);
+                    throw error;
+                }
+            }
+        }
+
+        // Initialize
+        const analyzer = new HockeySEOAnalyzer();
+
+        function setTeamName(name) {
+            document.getElementById('teamName').value = name;
+        }
+
+        function showLoading(message) {
+            document.getElementById('results').innerHTML = `
+                <div class="loading">
+                    <div style="font-size: 2rem; margin-bottom: 20px;">🏒</div>
+                    ${message}
+                    <div style="margin-top: 20px;">
+                        <div style="display: inline-block; width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 50%; border-top-color: #1a365d; animation: spin 1s ease-in-out infinite;"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            document.getElementById('results').innerHTML = `
+                <div class="error">
+                    <h3>❌ Analysis Failed</h3>
+                    <p>${message}</p>
+                    <button class="btn" onclick="location.reload()" style="margin-top: 15px; width: auto; padding: 12px 24px;">
+                        🔄 Try Again
+                    </button>
+                </div>
+            `;
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success';
+            successDiv.textContent = message;
+            document.getElementById('results').insertBefore(successDiv, document.getElementById('results').firstChild);
+        }
+
+        function displayResults(data) {
+            const { analyses, summary, teamName, league, totalKeywords } = data;
+            const top5 = analyses.slice(0, 5);
+            const realDataCount = analyses.filter(a => a.isRealData).length;
+
+            let html = `
+                <div class="results">
+                    <h3>🎯 Real-Time SEO Analysis Results</h3>
+                    <div class="results-subtitle">
+                        Powered by DataForSEO API via Vercel • ${realDataCount}/${top5.length} results from live Google data
+                    </div>
+                    
+                    <div class="summary-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">${totalKeywords}</div>
+                            <div class="stat-label">Keywords Analyzed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${summary.highOpportunity}</div>
+                            <div class="stat-label">High Opportunities</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${summary.totalSearchVolume.toLocaleString()}</div>
+                            <div class="stat-label">Monthly Search Volume</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${realDataCount}</div>
+                            <div class="stat-label">Real DataForSEO Results</div>
+                        </div>
+                    </div>
+
+                    <div class="opportunities-section">
+            `;
+
+            top5.forEach((analysis, index) => {
+                const priorityNumber = index + 1;
+                const scoreClass = analysis.opportunity >= 8 ? 'high' : analysis.opportunity >= 6 ? 'medium' : 'low';
+                const dataSource = analysis.isRealData ? 'real-data' : 'simulated-data';
+                const dataText = analysis.isRealData ? 'Live Data' : 'Simulated';
+                
+                html += `
+                    <div class="opportunity-item">
+                        <div class="opportunity-header">
+                            <div style="display: flex; align-items: center;">
+                                <div class="priority-number">${priorityNumber}</div>
+                                <div>
+                                    <div class="keyword-title">
+                                        ${analysis.keyword}
+                                        <span class="data-source-badge ${dataSource}">${dataText}</span>
+                                    </div>
+                                    <div style="color: #666; font-size: 0.9rem;">${analysis.gapType}</div>
+                                </div>
+                            </div>
+                            <div class="opportunity-score ${scoreClass}">Score: ${analysis.opportunity}/10</div>
+                        </div>
+                        
+                        <div class="opportunity-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Search Volume</div>
+                                <div class="detail-content">${analysis.searchVolume.toLocaleString()} monthly searches</div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <div class="detail-title">Your Current Ranking</div>
+                                <div class="detail-content">${analysis.teamRank}</div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <div class="detail-title">Top Competitors</div>
+                                <div class="detail-content">
+                                    <div class="competitor-list">
+                                        ${analysis.competitors.map(comp => `<span class="competitor-tag">${comp}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <div class="detail-title">Content Recommendation</div>
+                                <div class="detail-content">
+                                    <strong>${analysis.contentSuggestion.title}</strong><br>
+                                    ${analysis.contentSuggestion.format}<br>
+                                    <em>CTA: ${analysis.contentSuggestion.cta}</em>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <div class="detail-title">AI Search Strategy</div>
+                                <div class="detail-content">${analysis.llmStrategy}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+
+                    <div class="insights-section">
+                        <h4>🏒 Strategic Insights for ${teamName}</h4>
+                        <div class="insight-item">
+                            <strong>Data Quality:</strong> ${realDataCount} out of 5 keywords analyzed with real Google SERP data from DataForSEO API.
+                        </div>
+                        <div class="insight-item">
+                            <strong>Priority Focus:</strong> Your top opportunities represent ${summary.totalSearchVolume.toLocaleString()} monthly searches in the ${league} market.
+                        </div>
+                        <div class="insight-item">
+                            <strong>Revenue Impact:</strong> Capturing these searches could significantly boost ticket sales and group bookings.
+                        </div>
+                    </div>
+
+                    <div class="export-section">
+                        <h4>📈 Want More Analysis?</h4>
+                        <p style="margin-bottom: 15px;">This real-time analysis shows your top 5 opportunities from ${totalKeywords} keywords analyzed with live DataForSEO data.</p>
+                        <button class="btn export-btn" onclick="requestFullAnalysis()">💼 Get Complete Analysis</button>
+                        <button class="btn export-btn" onclick="downloadResults()">📄 Download Report</button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('results').innerHTML = html;
+        }
+
+        async function runAnalysis(teamName, league, email) {
+            const btn = document.querySelector('.analyze-btn');
+            const btnText = btn.querySelector('.btn-text');
+            const spinner = btn.querySelector('.loading-spinner');
+            
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            btnText.textContent = '🔄 Analyzing with Real Data...';
+            
+            showLoading(`Analyzing SEO gaps for ${teamName} using live DataForSEO API via Vercel...`);
+
+            try {
+                const result = await analyzer.analyzeKeywords(teamName, league, email);
+                
+                showSuccess(`✅ Analysis complete! Found ${result.summary.highOpportunity} high-priority opportunities.`);
+                
+                setTimeout(() => {
+                    displayResults(result);
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Analysis failed:', error);
+                showError(`Failed to analyze SEO gaps: ${error.message}`);
+            } finally {
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                btnText.textContent = '🚀 Analyze SEO Gaps (Real Data)';
+            }
+        }
+
+        function requestFullAnalysis() {
+            alert('Contact us for a complete analysis with all keywords and detailed competitor insights!');
+        }
+
+        function downloadResults() {
+            const teamName = document.getElementById('teamName').value;
+            const league = document.getElementById('league').value;
+            const email = document.getElementById('email').value;
+            
+            const reportContent = `
+Hockey SEO Analysis Report
+Team: ${teamName}
+League: ${league}
+Date: ${new Date().toLocaleDateString()}
+Email: ${email}
+
+This report was generated using real DataForSEO API data via Vercel.
+Contact us for a complete analysis with all keyword opportunities.
+            `;
+            
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `${teamName.replace(/\s+/g, '_')}_SEO_Report.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // Form submission handler
+        document.getElementById('analysisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const teamName = document.getElementById('teamName').value.trim();
+            const league = document.getElementById('league').value;
+            const email = document.getElementById('email').value.trim();
+            
+            if (!teamName || !email) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Call async function without await in event listener
+            runAnalysis(team// Call async function without await in event listener
+            runAnalysis(teamName, league, email).catch(error => {
+                console.error('Analysis error:', error);
+                showError('An error occurred during analysis. Please try again.');
+            });
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏒 Hockey SEO Analyzer loaded on Vercel');
+        });
+    </script>
+</body>
+</html>
